@@ -1,4 +1,87 @@
-<hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
+<h1>ngSwitch</h1>
+<input type="text" required [(ngModel)]="person.name"><strong>{{newName}}</strong>
+<div [ngSwitch]="person.name">
+  <p *ngSwitchCase="'nicolas'">
+    La persona es nicolas
+  </p>
+  <p *ngSwitchCase="'julian'">
+    La persona es julian
+  </p>
+  <p *ngSwitchCase="'camilo'">
+    La persona es camilo
+  </p>
+  <p *ngSwitchDefault>
+    No hace match
+  </p>
+
+</div>
+
+<hr>
+<h1>*ngFor Objects</h1>
+<div>
+  <div *ngFor="let product of products">
+    <img width="250" [src]="product.image" alt="image">
+    <h2>{{ product.price }}</h2>
+    <p>{{ product.name }}</p>
+  </div>
+</div>
+
+<h1>*ngFor</h1>
+<button (click)="addNewName()">Add name</button>
+<!-- <input type="text" [(ngModel)]="newName" #newAgeInput> -->
+<input type="text" [(ngModel)]="newName" (keyup.enter)="addNewName()"><strong>{{newName}}</strong>
+<!-- <ng-template #noView>Click en el item para eliminar</ng-template> -->
+<ul>
+  <!-- <a>  <li *ngFor="let name of names; index as i">{{i+1}} {{name}} <button (click)="deleteNewName(i)">Eliminar</button></li></a> -->
+  <li *ngIf="names.length === 0; else noView">Lista vacia</li>
+  <li *ngFor="let name of names; index as i"><a (click)="deleteNewName(i)"> {{i+1}} {{name}}</a></li>
+</ul>
+<ng-template #noView>
+  <p>Click en el item a eliminar: {{itemDeleted}} <strong *ngIf="itemDeleted.length != 0">fue eliminado</strong></p>
+</ng-template>
+<hr>
+<h1>*ngIf</h1>
+<p>Nombre {{person.name}}</p>
+<input type="text" [(ngModel)]="person.name">
+<p *ngIf="person.name !== '' && person.age >=18; else otro">Soy {{person.name}}</p>
+<ng-template #otro>Soy !! nobody !!</ng-template>
+
+<hr>
+<h1>NgModel</h1>
+<p>Nombre {{person.name}}</p>
+<input type="text" #nameInput="ngModel" required [(ngModel)]="person.name">
+<p>Valid {{ nameInput.valid }}</p>
+<p>Age {{person.age}}</p>
+<input type="number" max="18" min="10" #ageInput="ngModel" required [(ngModel)]="person.age">
+<span *ngIf="ageInput.valid; else ageInvalid">Valid {{ ageInput.valid }}</span>
+<ng-template #ageInvalid><span class="error">Age no válida</span></ng-template>
+
+
+<div class="box" (scroll)="onScroll($event)">
+<h1>Eventos</h1>
+<button [disabled]="btnDisable">Enviar</button>
+<button (click)="toggleButton()">Toggle Buton</button>
+<p>Edad {{person.age}}</p>
+<button (click)="increaseAge()">Age ++</button>
+<!-- <div class="box" (scroll)="onScroll($event)"> -->
+<div >
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed expedita voluptatum officiis neque deleniti, possimus, mollitia at ipsa repellendus blanditiis, provident molestiae architecto quibusdam? Perspiciatis quisquam inventore dicta accusamus molestias.</p>
+</div>
+<input type="text" [value]="person.name" (keyup)="changeName($event)">
+<p>Nombre {{person.name}}</p>
+
+
+
+<h1>Propiedades</h1>
+<button [disabled]="btnDisable">Enviar</button>
+<p>{{name}}</p>
+<input type="text" [value]="person.name">
+<progress max="100" [value]="person.age"></progress>
+<img [src]="person.avatar" width="100">
+
+<h1>Hola mundo</h1>
+<h2>{{ 'Hola Mundo'.repeat(5) }} </h2>
+<p>3 + 3 = {{3 + 3}}</p>
+<h3>ola, soy {{ name }} y tengo {{age}}</h3>
+<img src={{img}} alt="imagen">
+</div>
